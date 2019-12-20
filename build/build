@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# Copyright (c) 2019 FEROX YT EIRL, www.ferox.yt <devops@ferox.yt>
+# Copyright (c) 2019 Jérémy WALTHER <jeremy.walther@golflima.net>
+# See <https://github.com/frxyt/docker-php-app> for details.
+
+set -ex
+
+# Install required packages
+apk update
+apk add \
+    bash \
+    perl \
+    nginx \
+    supervisor
+
+# Create folders
+mkdir -p /app
+mkdir -p /etc/supervisord.conf.d
+mkdir -p /usr/local/bin/frx-runasync.d
+mkdir -p /usr/local/bin/frx-start.d
+mkdir -p /var/log/supervisor
+mkdir -p /var/run/nginx
+
+# Move scripts
+mv -f /frx/log                      /usr/local/bin/frx-log
+mv -f /frx/runasync                 /usr/local/bin/frx-runasync
+mv -f /frx/start                    /usr/local/bin/frx-start
+
+# Move configuration files
+mv -f /frx/conf/nginx.conf          /etc/nginx/conf.d/default.conf
+mv -f /frx/conf/php-fpm.conf        /usr/local/etc/php-fpm.d/zz-frx.conf
+mv -f /frx/conf/supervisord.conf    /etc/supervisord.conf
+
+# Clean APK cache
+rm -rf /var/cache/apk/*
+
+# Display versions
+cat /etc/alpine-release
+nginx -v
+php -v
+php -m

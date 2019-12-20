@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Copyright (c) 2019 FEROX YT EIRL, www.ferox.yt <devops@ferox.yt>
+# Copyright (c) 2019 Jérémy WALTHER <jeremy.walther@golflima.net>
+# See <https://github.com/frxyt/docker-php-app> for details.
+
+# Display MOTD
+if [[ -n "${FRX_MOTD}" ]]; then
+    if [[ "${FRX_MOTD}" == 'default' ]]; then
+        FRX_MOTD="[frxyt/php-app] [PHP:${PHP_VERSION}] <https://github.com/frxyt/docker-php-app>"
+    fi
+    echo -e "${FRX_MOTD}"
+fi
+
+# Execute customs scripts if needed
+for exe in $(find /usr/local/bin/frx-start.d -executable ! -type d | sort); do
+    echo "Executing: '${exe}' ..."
+	/bin/bash ${exe}
+done
+
+# Start supervisor
+/usr/bin/supervisord -c /etc/supervisord.conf
