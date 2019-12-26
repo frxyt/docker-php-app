@@ -20,10 +20,41 @@ This image packages PHP with PHP-FPM & NGINX in a slim image so you can focus on
 1. Add your built PHP application into `/app`
 1. Start the container
 
-## Build
+## Examples
+
+### Symfony4 application with GD & MySQL extensions
+
+`Dockerfile` file content:
+
+```Dockerfile
+FROM frxyt/php-dev-full:7.4-cli as build
+COPY . /app
+WORKDIR /app
+RUN composer install --no-interaction --no-progress --no-suggest --no-dev --optimize-autoloader
+RUN yarn install
+RUN yarn encore production
+RUN rm -rf node_modules
+
+FROM frxyt/php-app:7.4 as app
+COPY --from=build /app /app
+RUN     echo -n "#!/bin/bash\nphp bin/console doctrine:migrations:migrate -n" > /usr/local/bin/frx-start.d/app \
+    &&  chmod +x /usr/local/bin/frx-start.d/app \
+    &&  /usr/local/bin/frx-tz Europe/Paris \
+    &&  apk add --no-cache \
+            freetype-dev \
+            libjpeg-turbo-dev \
+            libpng-dev \
+    &&  docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
+    &&  docker-php-ext-install -j$(nproc) gd \
+    &&  docker-php-ext-install -j$(nproc) pdo_mysql \
+    &&  sed -i 's/^\(\s*\)root\(\s*\)[^;]*;/\1root\2\/app\/public;/g' /etc/nginx/conf.d/default.conf
+```
+
+## Build & Test
 
 ```sh
 docker build -f Dockerfile -t frxyt/php-app:latest .
+docker run --rm -it frxyt/php-app:latest bash
 ```
 
 ## License
