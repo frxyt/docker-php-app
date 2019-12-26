@@ -8,7 +8,7 @@ apk add --no-cache tzdata
 
 if [[ -f "/usr/share/zoneinfo/$1" ]]; then
     cp /usr/share/zoneinfo/$1 /etc/localtime
-    echo "Europe/Brussels" >  /etc/timezone
+    echo "$1" > /etc/timezone
     date
 else
     echo "Error: $1 is not a valid TZ data!"
@@ -17,4 +17,4 @@ else
     exit 1;
 fi
 
-apk del tzdata
+apk del --no-cache tzdata
