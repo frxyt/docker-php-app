@@ -7,8 +7,7 @@
 set -ex
 
 # Install required packages
-apk update
-apk add \
+apk add --no-cache \
     bash \
     perl \
     nginx \
@@ -32,9 +31,6 @@ mv -f /frx/tz                       /usr/local/bin/frx-tz
 mv -f /frx/conf/nginx.conf          /etc/nginx/conf.d/default.conf
 mv -f /frx/conf/php-fpm.conf        /usr/local/etc/php-fpm.d/zz-frx.conf
 mv -f /frx/conf/supervisord.conf    /etc/supervisord.conf
-
-# Clean APK cache
-rm -rf /var/cache/apk/*
 
 # Display versions
 cat /etc/alpine-release
