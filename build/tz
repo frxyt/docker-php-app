@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Copyright (c) 2019 FEROX YT EIRL, www.ferox.yt <devops@ferox.yt>
-# Copyright (c) 2019 Jérémy WALTHER <jeremy.walther@golflima.net>
+# Copyright (c) 2019,2020 FEROX YT EIRL, www.ferox.yt <devops@ferox.yt>
+# Copyright (c) 2019,2020 Jérémy WALTHER <jeremy.walther@golflima.net>
 # See <https://github.com/frxyt/docker-php-app> for details.
-
-apk add --no-cache tzdata
 
 if [[ -f "/usr/share/zoneinfo/$1" ]]; then
     cp /usr/share/zoneinfo/$1 /etc/localtime
@@ -16,5 +14,3 @@ else
     ls -1 /usr/share/zoneinfo
     exit 1;
 fi
-
-apk del --no-cache tzdata

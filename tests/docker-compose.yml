@@ -8,6 +8,8 @@ services:
 
   app:
     image: frxyt/php-app:latest
+    environment: 
+      - TZ=Europe/Paris
     labels:
       - traefik.enable=true
       - traefik.http.routers.app.entrypoints=http
