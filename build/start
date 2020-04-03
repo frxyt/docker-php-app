@@ -13,7 +13,7 @@ if [[ -n "${FRX_MOTD}" ]]; then
 fi
 
 # Update TZ
-if [[ -n "${TZ}" ]];
+if [[ -n "${TZ}" ]]; then
     /usr/local/bin/frx-tz "${TZ}"
 fi
 
