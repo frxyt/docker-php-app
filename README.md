@@ -53,8 +53,10 @@ RUN     echo -n "#!/bin/bash\nphp bin/console doctrine:migrations:migrate -n" > 
 ## Build & Test
 
 ```sh
-docker build -f Dockerfile -t frxyt/php-app:latest .
-docker run --rm -it frxyt/php-app:latest bash
+docker build -f Dockerfile-7.4 -t frxyt/php-app:7.4 .
+docker build -f Dockerfile-8.0 -t frxyt/php-app:8.0 .
+docker run --rm -it frxyt/php-app:7.4 bash
+docker run --rm -it frxyt/php-app:8.0 bash
 ```
 
 ## License

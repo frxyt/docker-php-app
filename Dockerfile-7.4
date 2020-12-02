@@ -8,7 +8,7 @@ LABEL maintainer="Jérémy WALTHER <jeremy@ferox.yt>"
 
 COPY build /frx/
 RUN /frx/build
-COPY Dockerfile LICENSE README.md /frx/
+COPY Dockerfile-7.4 LICENSE README.md /frx/
 
 ENV FRX_LOG_PREFIX_MAXLEN=8 \
     FRX_MOTD=default
