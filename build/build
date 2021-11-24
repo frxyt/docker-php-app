@@ -6,6 +6,9 @@
 
 set -ex
 
+# List files
+ls -alhR /frx
+
 # Install required packages
 apk add --no-cache \
     bash \
