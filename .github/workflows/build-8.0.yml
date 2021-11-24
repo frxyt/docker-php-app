@@ -6,7 +6,7 @@ on:
     branches:
       - master
     paths:
-      - .github/workflows/build.yml
+      - .github/workflows/build-8.0.yml
       - build/
       - Dockerfile-8.0
 
