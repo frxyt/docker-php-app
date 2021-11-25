@@ -1,19 +1,23 @@
 #!/bin/bash
 
-# Copyright (c) 2019,2020 FEROX YT EIRL, www.ferox.yt <devops@ferox.yt>
-# Copyright (c) 2019,2020 Jérémy WALTHER <jeremy.walther@golflima.net>
+# Copyright (c) 2019,2020,2021 FEROX YT EIRL, www.ferox.yt <devops@ferox.yt>
+# Copyright (c) 2019,2020,2021 Jérémy WALTHER <jeremy.walther@golflima.net>
 # See <https://github.com/frxyt/docker-php-app> for details.
 
 # Display MOTD
 if [[ -n "${FRX_MOTD}" ]]; then
     if [[ "${FRX_MOTD}" == 'default' ]]; then
-        FRX_MOTD="[frxyt/php-app] [PHP:${PHP_VERSION}] <https://github.com/frxyt/docker-php-app>"
+        if [[ "${FRX_OS_VARIANT}" =='alpine' ]];
+            FRX_MOTD="[frxyt/php-app:$(</etc/frx_version)]\n[Alpine:$(</etc/alpine-release)] [PHP:${PHP_VERSION}]\n<https://github.com/frxyt/docker-php-app>"
+        else
+            FRX_MOTD="[frxyt/php-app:$(</etc/frx_version)]\n[Debian:$(</etc/debian_version)] [PHP:${PHP_VERSION}]\n<https://github.com/frxyt/docker-php-app>"
+        fi
     fi
     echo -e "${FRX_MOTD}"
 fi
 
 # Update TZ
-if [[ -n "${TZ}" ]]; then
+if [[ "${FRX_OS_VARIANT}" =='alpine' -a -n "${TZ}" ]]; then
     /usr/local/bin/frx-tz "${TZ}"
 fi
 
