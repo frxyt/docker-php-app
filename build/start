@@ -7,7 +7,7 @@
 # Display MOTD
 if [[ -n "${FRX_MOTD}" ]]; then
     if [[ "${FRX_MOTD}" == 'default' ]]; then
-        if [[ "${FRX_OS_VARIANT}" == 'alpine' ]];
+        if [[ "${FRX_OS_VARIANT}" == 'alpine' ]]; then
             FRX_MOTD="[frxyt/php-app:$(</etc/frx_version)]\n[Alpine:$(</etc/alpine-release)] [PHP:${PHP_VERSION}]\n<https://github.com/frxyt/docker-php-app>"
         else
             FRX_MOTD="[frxyt/php-app:$(</etc/frx_version)]\n[Debian:$(</etc/debian_version)] [PHP:${PHP_VERSION}]\n<https://github.com/frxyt/docker-php-app>"
@@ -17,7 +17,7 @@ if [[ -n "${FRX_MOTD}" ]]; then
 fi
 
 # Update TZ
-if [[ "${FRX_OS_VARIANT}" == 'alpine' -a -n "${TZ}" ]]; then
+if [[ "${FRX_OS_VARIANT}" == 'alpine' && -n "${TZ}" ]]; then
     /usr/local/bin/frx-tz "${TZ}"
 fi
 
