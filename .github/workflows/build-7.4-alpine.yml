@@ -10,7 +10,7 @@ on:
     branches:
       - master
     paths:
-      - .github/workflows/build-${{ env.PHP_VERSION }}-${{ env.OS_VARIANT }}.yml
+      - .github/workflows/build-7.4-alpine.yml
       - build/
       - Dockerfile
 
