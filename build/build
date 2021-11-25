@@ -43,9 +43,9 @@ mv -f /frx/tz                       /usr/local/bin/frx-tz
 
 # Move configuration files
 if [ "${FRX_OS_VARIANT}" = "alpine" ]; then
-    mv -f /frx/conf/nginx.conf          /etc/nginx/http.d/default.conf
+    mv -f /frx/conf/nginx.conf      /etc/nginx/http.d/default.conf
 else
-    mv -f /frx/conf/nginx.conf          /etc/nginx/sites-enabled/default
+    mv -f /frx/conf/nginx.conf      /etc/nginx/sites-enabled/default
 fi
 mv -f /frx/conf/php-fpm.conf        /usr/local/etc/php-fpm.d/zz-frx.conf
 mv -f /frx/conf/supervisord.conf    /etc/supervisord.conf
